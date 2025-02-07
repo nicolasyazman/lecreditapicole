@@ -13,11 +13,13 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll()  // Allow H2 Console
+                .requestMatchers("/api/users/**").permitAll()
+                .requestMatchers("/api/userscomment/**").permitAll()
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions().disable())  // Fix H2 iframe issue
             .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));  // Disable CSRF for H2
-
+       
         return http.build();
     }
 }
